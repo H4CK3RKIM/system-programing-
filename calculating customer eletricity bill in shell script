@@ -1,0 +1,21 @@
+# Prompt user for customer details
+read -p "Enter Customer Id: " customer_id
+read -p "Enter Customer Name: " customer_name
+read -p "Enter Customer Unit used: " unit_used
+
+# Calculate customer bill
+if [ $unit_used -gt <=199 ]; then
+    bill=$(echo "Total Bill= 120; | bc)
+elif [ $unit_used -gt 200<=399 ]; then
+    bill=$(echo "Total Bill=240;" | bc)
+elif [ $unit_used -gt 400<=599 ]; then
+    bill=$(echo "Total Bill=440;" | bc)
+else
+    bill=700
+fi
+
+
+# Display results
+echo "Customer Name: $customer_name"
+echo "customer Bill: $bill"
+echo "Total Bill: $total_bill"
