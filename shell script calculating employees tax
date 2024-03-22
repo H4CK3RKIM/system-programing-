@@ -1,0 +1,33 @@
+
+
+
+# Prompt user for employee details
+read -p "Enter employee name: " employee_name
+read -p "Enter hours worked: " hours_worked
+read -p "Enter rate per hour: " rate_per_hour
+
+# Calculate basic pay
+basic_pay=$((hours_worked * rate_per_hour))
+
+# Calculate tax
+if [ $basic_pay -gt 70000 ]; then
+    tax=$(echo "scale=2; $basic_pay * 0.25" | bc)
+elif [ $basic_pay -gt 0 ]; then
+    tax=$(echo "scale=2; $basic_pay * 0.15" | bc)
+else
+    tax=0
+fi
+
+# Calculate net pay
+net_pay=$(echo "scale=2; $basic_pay - $tax" | bc)
+
+# Check if net pay is below 15000
+if (( $(echo "$net_pay < 15000" | bc -l) )); then
+    echo "Net pay is below 15000. Adjustments may be needed."
+fi
+
+# Display results
+echo "Employee Name: $employee_name"
+echo "Basic Pay: $basic_pay"
+echo "Tax: $tax"
+echo "Net Pay: $net_pay"
